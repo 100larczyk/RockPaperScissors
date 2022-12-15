@@ -1,52 +1,82 @@
-/*function getComputerChoice() {
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="javascript.js"></script>
+  </body>
+</html>
+
+let playerSelection;
+let computerSelection = getComputerChoice(); //przypisuje wartość funkcji do zmiennej//
+let playerPoints = 0;
+let computerPoints = 0;
+
+function getComputerChoice() {
   let randomNumber = Math.floor(Math.random() * 3);
   // ta funkcja zwraca losową liczbę od 0 do 2//
   if (randomNumber === 0) {
-    randomNumber = "Rock";
+    randomNumber = "rock";
   } else if (randomNumber === 1) {
-    randomNumber = "Paper";
+    randomNumber = "paper";
   } else if (randomNumber === 2) {
-    randomNumber = "Scissors";
+    randomNumber = "scissors";
   }
   return randomNumber;
 }
 //w tym momencie funkcja zwraca nazwy figur gry w sposób losowy
 
-let playerSelection;
-
-function game(playerSelection) {
+//runda gry. //
+function playRound(playerSelection, computerSelection) {
+  computerSelection = getComputerChoice();
+  playerSelection = playerSelection.toLowerCase();
+  //powyżej sprawia, że wprowadzona zmienna jest niewrażliwa na wielkość znaków//
   if (
-    (getComputerChoice() === "Rock" && playerSelection === "Rock") ||
-    (getComputerChoice() === "Paper" && playerSelection === "Paper") ||
-    (getComputerChoice() === "Scissors" && playerSelection === "Scissors")
+    (playerSelection === "rock" && computerSelection === "rock") ||
+    (playerSelection === "paper" && computerSelection === "paper") ||
+    (playerSelection === "scissors" && computerSelection === "scissors")
   ) {
-    return "Draw.";
-  } else if (getComputerChoice() === "Rock" && playerSelection === "Paper") {
-    return "Player wins. Paper beats Rock";
-  } else if (getComputerChoice() === "Rock" && playerSelection === "Scissors") {
-    return "Computer wins. Rock beats Scissors";
-  } else if (getComputerChoice() === "Paper" && playerSelection === "Rock") {
-    return "Computer wins. Paper beats Rock";
+    playerPoints++; //dodaje punkt na konto gracza po każdej wygranej przez niego rundzie//
+    computerPoints++;
+    console.log("Draw");
   } else if (
-    getComputerChoice() === "Paper" &&
-    playerSelection === "Scissors"
+    (playerSelection === "rock" && computerSelection === "paper") ||
+    (playerSelection === "paper" && computerSelection === "scissors") ||
+    (playerSelection === "scissors" && computerSelection === "rock")
   ) {
-    return "Player wins. Scissros beat Paper";
+    computerPoints++; //dodaje punkt na konto komputera po każdej wygranej przez niego rundzie//
+    console.log("Computer won this round");
   } else if (
-    getComputerChoice() === "Scissors" &&
-    playerSelection === "Paper"
+    (playerSelection === "rock" && computerSelection === "scissors") ||
+    (playerSelection === "paper" && computerSelection === "rock") ||
+    (playerSelection === "scissors" && computerSelection === "paper")
   ) {
-    return "Computer wins. Scissors beat Paper";
-  } else if (getComputerChoice() === "Scissors" && playerSelection === "Rock") {
-    return "Player wins. Rock beasts Scissors";
+    playerPoints++;
+    console.log("You won this round!");
   } else {
-    return 'Check your inpput for any typo. Be sure your input has ""';
+    return "Check your inpput for any typo.";
   }
 }
-//runda gry. // */
-function prime() {
-  let n = prompt("Type any number to get prime numbers");
-  for (n; ; n++) {
-    if (n % 1 == n && n % n == 1) alert(n);
+
+//funkcja rozgrywająca 5 rund z kolei//
+function game() {
+  let iteration = 0;
+  for (iteration; iteration <= 4; iteration++) {
+    let playerSelection = prompt();
+    playRound(playerSelection, computerSelection);
+    console.log(iteration);
+  }
+  console.log({ playerPoints, computerPoints, iteration });
+
+  if (playerPoints > computerPoints) {
+    console.log("You won with Computer! Congratulations!");
+  } else if (playerPoints < computerPoints) {
+    console.log("Computer won with You! What's a pitty... ");
+  } else {
+    console.log("It is a draw. Play again");
   }
 }
