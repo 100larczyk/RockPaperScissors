@@ -1,0 +1,24 @@
+#result {
+  margin-top: 30px;
+  width: 200px;
+  height: 50px;
+  border: 1px black solid;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#playerResult {
+  width: 100px;
+  height: 30px;
+  border: 1px black solid;
+}
+
+#computerResult {
+  width: 100px;
+  height: 30px;
+  border: 1px black solid;
+}
